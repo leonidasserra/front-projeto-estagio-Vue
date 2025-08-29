@@ -2,33 +2,514 @@ body {
   background-color: #b7d4fa;
 }
 
-table{
-    border-collapse: collapse;
+button{
+  border-radius: 5px;
+}
+
+header{
+  position: fixed;
+  background-color: rgba(73, 119, 162, 1);
+  height: 10%;
+  left: 0;
+  right: 0;
+  top:0;
+}
+
+header h1{
+  color: aliceblue;
+  margin-left: 20px;
+  margin-bottom: 10px
+}
+#login-btn{
+  background-color:#4DB1F8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 25px;
+  margin-top:20px;
+}
+
+/*div login*/
+.page-title{
+  font-size: 35px;
+  padding-top: 20px;
+  /* padding-left: 15px; */
+  margin-right: 10%;
+}
+.section-access{
+  display:flex;
+  flex-direction: column;    /* <-- Isso faz os elementos ficarem em coluna (um abaixo do outro) */
+  justify-content: center;  /* Centraliza horizontalmente */
+  align-items: center;      /* Centraliza verticalmente */
+  height: 50vh;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  font-size: 10px;
+  margin-bottom: 8px;
+  gap:7px;
+}
+
+.section-access input{
+  border-radius: 5px;
+  border-width: 0px;
+  height: 2.3vh;
+  width: 35vh;
+
+}
+
+.section-access label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0; /* <-- Começa logo abaixo do header */
+  left: 0;
+  width: 15%;
+  height: 100%; /* <-- Para completar 100vh junto com o header */
+  padding-left: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-right: 10px;
+  background-color: rgba(73, 119, 162, 1);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 20px;
+  
+}
+
+.inner-sidebar{
+  display: flex;
+  justify-content: center;
+  padding-left: 90px;
+}
+.inner-sidebar h1{
+  color: white;
+
+}
+
+.sidebar ul{
+  list-style: none;
+}
+
+.sidebar a {
+  display: block;              /* Faz o link ocupar uma linha inteira */
+  white-space: nowrap;         /* Impede que o texto quebre em múltiplas linhas */
+  margin-bottom: 10px;
+  /* margin-left: -5; */
+  padding-left: -50px;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight:bolder;
+}
+
+.main-content {
+  margin-left: 150px; /* espaço da sidebar */
+  margin-top: 0.1vh;   /* espaço do header */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+/* Conteúdo centralizado */
+.content {
+  text-align: center;
+}
+.page-title{
+  margin-left: 200px; /* espaço da sidebar */
+  margin-top: 10vh;   /* espaço do header */
+}
+
+#exit-btn{
+position: fixed;
+bottom: 0;
+}
+
+
+
+h1{
+top:0;  
+left:5px;  
+font-size:45px ;
+font-family: "Poppins", sans-serif;
+color: rgb(0, 0, 0);
+}
+
+.filmes{
+
+  background-color: white;
+  width: 100%;
+  height: 100px;
+  border-radius: 10px;
+  padding-left: 10px;
+  box-shadow: 2px 2px 10px #00000033;
+
+}
+
+.filmes h2{
+  padding-top: 5px;
+}
+
+ 
+.inner-filme{
+display: flex;
+justify-content: space-between; /* um vai para a esquerda, outro para a direita */
+align-items: flex-end; /* isso faz o botão descer */
+padding-top: 20px;
+gap: 16px;
+padding-right: 10px;
+bottom: 5px;
+padding-bottom: 15px;
+}
+
+.add-filme-btn{
+  background-color: #4DB1F8;
+  width: 120px;
+  height: 22px;
+  border-radius: 20px;
+}
+
+.login-btn{
+  border-radius: 10px;
+  background-color: #4DB1F8;
+  color: white;
+}
+
+.section-access input{
+  border-radius: 10px;
+  height: 2.4vh;
+  width: 35vh;
+  border-width: 1px;
+  border-color: black;
+}
+
+.main-content-signup {
+  margin-left: 150px; /* espaço da sidebar */
+  margin-top: 15vh;   /* espaço do header */
+  height: 10vh;
+  display: grid;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+ 
+}
+
+.section-signup label{
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bolder;
+  margin-bottom: 5px;
+}
+
+.section-signup textarea{
+  width: 100%;
+}
+
+.section-signup select{
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+  width: 101%;
+  height: 20px;
+  height: 2.3vh;
+  border-width: 1px;
+
+}
+
+.signup-btn {
+  display: flex;
+  justify-content: end;
+  
+}
+
+.inner-content-signup{
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6); /* deslocamento X, Y, desfoque, cor */
+  border-radius: 10px;
+  padding: 10px;
+    /* background-color: #d9d9d9; */
+}
+
+.section-signup input{
+  border-color: black;
+  border-radius: 10px;
+  height: 2.3vh;
+  width: 35vh;
+  border-width: 1px;
+
+}
+
+
+
+.rent-main-content{
+  /* display: flex; */
+  /* align-items: center; */
+  /* flex-direction: column; */
+  top: 15%;
+  padding-left: 25%;
+  margin-right: 10%;
+}
+
+
+.filmes-rent{
+    background-color: white;
+  width: 500px;
+  height: 50px;
+  border-radius: 10px;
+  padding-left: 10px;
+  /* padding-bottom: 10px; */
+  
+}
+
+.filmes-rent h2{
+ padding-bottom: 10px;
+}
+
+.rent-btn{
+  background-color: #4DB1F8;
+  width: 135px;
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+}
+
+
+.main-content-pessoas{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap:10px;
+  margin-top: 80px;
+}
+
+
+.pessoas{
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: space-between;
+gap: 80px;
+background-color: whitesmoke;
+width: 50vh;
+border-radius: 10px;
+  padding-left: 10px;
+}
+
+
+.inner-pessoas{
+  display: flex;
+  justify-content: end;
+  font-size: small;
+  padding-right: 10px;
+}
+
+
+.back-btn{
+position: fixed;
+bottom: 110px;  
+background-color: #5c5c5c;
+color: #070707;
+width: 100px;
+}
+
+.overlay, .confirm-box {
+    display: none;
+}
+
+.overlay{
+    display: block;
+    position: fixed;
+    top: 0; left: 0;
     width: 100%;
-    /* margin-top: 10px;
-    margin-left:30%; */
-    /* border: 1px solid #534242; */
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.confirm-box{
+    display: block;
+    position: fixed;
+    align-items: center;
+    width: 30vh;
+    height: 15vh; 
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
     border-radius: 8px;
-    overflow: hidden; /* para arredondar os cantos */
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-    justify-content: center;
-
-}
-
-th, td{
-    padding: 12px;
     text-align: center;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
+.inner-confirm-box{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  padding-top: 5%;
+  margin-bottom: 50%;
+}
 
-table a{
+.inner-confirm-box button{
+
+width: 150px;
+height: 30px;
+border-radius: 9px;
+}
+
+#btnSim{
+background-color: #4DB1F8;
+color: white;
+font-weight: bolder;
+}
+
+#btnNao{
+background-color: #5c5c5c;
+font-weight: bolder;
+}
+
+.main-content-pessoas-det{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 10vh;
+  gap:20px;
+}
+.main-content-pessoas-det p{
+  font-size: 22px;
+  font-weight: bolder;
+}
+
+.back-btn-pessoaDet{
+  position: fixed;
+  bottom: 180px;  
+  background-color: #5c5c5c;
+  color: #070707;
+  width: 200px;
+  height: 50px;
+  font-size: large;
+  font-weight: bolder;
+}
+
+.aluguel{
+
+  background-color: white;
+  width: 500px;
+  height: 100px;
+  border-radius: 10px;
+  padding-left: 10px;
+
+}
+
+.alugueis{
+  padding-top: 50px;
+}
+
+.main-content-filmesDet{
+  margin-top: 10%;
+  margin-left: 15%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap:10px;
+  justify-content: center;
+  top: 200px
+}
+
+.main-content-filmesDet p{
+  font-size: 26px;
+  font-weight: bolder;
+}
+
+.div-back-btn-filmedet{
+  display: flex;
+  justify-content: center;
+
+}
+.div-back-btn-filmedet button{
+  font-size: large;
+  font-weight: bolder;
+  background-color: #5c5c5c;
+  color: #070707;
+  width: 200px;
+  height: 50px;
+
+}
+.inner-aluguel{
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 240px;
+  padding-bottom: 5px;
+  margin-bottom: 20pxpx;
+}
+
+.inner-aluguel p{
+  font-weight: lighter;
+}
+
+.inner-aluguel a{
   text-decoration: none;
 }
 
-thead{
-    background-color: #5a5f7f;
-    color: white;
+
+.details{
+  top:30%;
+  justify-content: center;
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+  margin-top: 110px;
+  padding-top: 10px;
+  padding-left: 20px;
 }
+
+.details h1{
+  font-size: 35px;
+}
+
+
+
+
+
+.pessoaDet{
+  top:30vh;
+  background-color: white;
+  width: 500px;
+  height: 300px;
+  border-radius: 10px;
+  margin-top: 110px;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.pessoaDet p{
+margin-top: 10px;
+}
+
+.details p{
+  margin-top: 10px;
+}
+
+
+
+
+
+/* ========================================================= */
 
 .pagination {
   display: flex;
@@ -61,6 +542,244 @@ thead{
   background-color: #f0f0f0;
 }
 
+.div-back-btn{
+  display: flex;
+  justify-content: center;
+  padding-right: 10px;
+}
+
+.confirm-btn{
+  display: flex;
+  justify-content: end;
+}
+
+.confirm-btn button{
+  height: 25px;
+  width: 90px;
+}
+
+.page-title-home{
+  display: flex;
+  justify-content: flex-start;
+  /* margin-left: 50px; espaço da sidebar */
+  margin-top: 10vh;   /* espaço do header */
+  font-size: 35px;
+  /* padding-top: 20px; */
+  
+}
+
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+    /* margin-top: 10px;
+    margin-left:30%; */
+    /* border: 1px solid #534242; */
+    border-radius: 8px;
+    overflow: hidden; /* para arredondar os cantos */
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    justify-content: center;
+
+}
+th, td{
+    padding: 12px;
+    text-align: center;
+}
+
+table a{
+  text-decoration: none;
+}
+
+thead{
+    background-color: #5a5f7f;
+    color: white;
+}
+
+.add-btn{
+  background-color: #4DB1F8;
+  width: 100px;
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+}
+
+.movie-details-title{
+display: flex;
+justify-content: flex-start;
+}
+
+.home-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.rent-title{
+  padding-left: 20%;
+  margin-bottom: 5%;
+}
+
+
+.section-signup-rent{
+    display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  font-weight: bolder;
+}
+
+.make-rent{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 10%
+}
+
+.section-signup-rent label{
+  margin-bottom: 5px;
+  
+
+}
+
+.section-signup-rent input{
+  margin-bottom: 5px;
+  border-radius: 20px;
+  width: 100%;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2)
+}
+
+.movie-description {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    max-width: 1000px;
+}
+
+.movie-description h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.movie-description p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.modal {
+    display: block; 
+    position: fixed;
+    z-index: 9999; /* bem alto para ficar acima de tudo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalContent {
+    background-color: #e4ebe5;
+    position: relative; /* mantém o conteúdo dentro do modal acima também */
+    z-index: 10000; /* acima do overlay */
+    margin: 15% auto;
+    padding: 20px;
+    width: 40%;
+    border-radius: 9px;
+    border: 3px solid #534242;
+}
+
+.buttonModal{
+  background-color: #4DB1F8;
+  width: 100px;
+  height: 30px;
+  border-radius: 20px;
+  color: white;
+  font-weight: bolder;
+  margin-left: 85%;
+}
+
+.pessoa-content{
+  padding-left:20%;
+}
+
+.form-grid{
+  width: 100%;
+}
+
+.form-control{
+  display: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  font-weight:bolder;
+  font-size: 25px;
+  gap: 50px;
+}
+.form-control input{
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+  width: 100%;
+  border-color: black;
+  border-radius: 10px;
+  height: 2.3vh;
+  width: 100%;
+  border-width: 1px;
+}
+
+.form-control select{
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+  width: 101%;
+  height: 20px;
+  height: 2.3vh;
+  border-width: 3px;
+}
+
+.form-actions{
+  display: flex;
+  justify-content: flex-end;
+}
+
+input[type="checkbox"] {
+  
+  transform: scale(1.8); /* aumenta 50% */
+  margin: 5px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  background-color: #4DB1F8;
+}
+
+.selected-row {
+  background-color: rgba(73, 119, 162, 1); /* verde claro */
+}
+
+.main-content-signup-movie{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  height: 100%;
+}
+
+
+.inner-content-signup-movie{
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6); /* deslocamento X, Y, desfoque, cor */
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  height: 100vh;
+  top: 0;
+}
+
+
 .float-btn{
   position: fixed;
   right: 16px;
@@ -79,10 +798,62 @@ thead{
 }
 .float-btn:hover{ transform: translateY(-5px); box-shadow: 0 10px 22px rgba(0,0,0,.28); }
 
-input[type="checkbox"] {
-  
-  transform: scale(1.8); /* aumenta 50% */
-  margin: 5px;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-  background-color: #4DB1F8;
+.trash-btn {
+  background: none;      /* Remove cor de fundo */
+  border: none;          /* Remove borda */
+  font-size: 24px;       /* Tamanho do emoji */
+  cursor: pointer;       /* Mostra o cursor de clique */
+  padding: 4px;          /* Espaço interno */
+}
+
+.trash-btn:hover {
+  transform: scale(1.2); /* Aumenta levemente ao passar o mouse */
+}
+
+.fa-solid{
+  color: red;
+}
+
+.top-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50%;
+  width: 80%;
+  padding-left: 10%;
+}
+
+.searchbar{
+  margin-left: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.searchbar input{
+  border-radius: 8px;
+}
+
+.searchbar button{
+  border-radius: 15px;
+  background-color: white;
+}
+
+.exclude-btn{
+  border-width: 0px;
+  background-color: #b7d4fa;
+}
+
+.exclude-btn:hover{
+cursor: pointer;
+}
+
+input[type="radio"]{
+margin: 0 0 0 0;
+padding: 0 0 0 0;
+}
+
+#pessoAluguel{
+  width: 100%;
 }

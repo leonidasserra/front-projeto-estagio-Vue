@@ -3,7 +3,8 @@
 import './assets/global.css';
 import Sidebar from './components/Sidebar.vue';
 import Home from './pages/Home.vue'
-
+import FilmeDetalhes from './pages/FilmeDetalhes.vue';
+import { RouterView } from 'vue-router';
 
 
 </script>
@@ -16,7 +17,9 @@ import Home from './pages/Home.vue'
     <Sidebar></Sidebar>
 
     <main class="content-area">
-      <Home></Home>
+      <!-- <Home></Home> -->
+       <!-- <FilmeDetalhes/> -->
+        <RouterView/>
     </main>
   </div>
 </template>

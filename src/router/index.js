@@ -1,20 +1,28 @@
+import FazerAluguel from '@/pages/FazerAluguel.vue';
+import FilmeDetalhes from '@/pages/FilmeDetalhes.vue';
+import Home from '@/pages/Home.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
     path: '/',
-    redirect: '/home'
+    redirect: '/home',
+
   },
-//   {
-//     path: '/home',
-//     name: 'home',
-//     component: Home
-//   },
-//   {
-//     path: '/clientes',
-//     name: 'clientes',
-//     component: Clientes
-//   },
+  {
+    path: '/home',
+    component: Home
+  },
+  {
+    path: '/filme-detalhes',
+    name: 'FilmeDetalhes',
+    component: FilmeDetalhes
+  },
+  {
+    path: '/fazer-aluguel',
+    name: 'FazerAluguel',
+    component: FazerAluguel
+  },
 //   {
 //     path: '/novo-cliente',
 //     name: 'novo-cliente',
