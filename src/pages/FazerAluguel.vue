@@ -59,18 +59,18 @@
                 <br><br>
 
                 <div class="div-rent-btn">
-                    <button type="button"  id="confirm-rent-btn" class="float-btn" @click="confirmarAluguel">Confirmar</button>
+                    <button type="button"  id="confirm-rent-btn" class="float-btn" @click.prevent="confirmarAluguel">Confirmar</button>
                 </div>
             </div>    
 
     </form>
 
     <!-- Janela de Confirmação -->
-    <div v-if="isOverlayVisible" class="overlay" id="overlay" @click="isOverlayVisible=false">
-    <div v-if="isOverlayVisible" class="confirm-box" id="confirmBox" @click.stop="fazerAluguel">
+    <div v-if="isOverlayVisible" class="overlay" id="overlay" @click="isOverlayVisible=false; confirmarAluguel">
+    <div v-if="isOverlayVisible" class="confirm-box" id="confirmBox" @click.stop>
         <p>Você tem certeza?</p>
         <div v-if="isOverlayVisible" class="inner-confirm-box">
-            <button id="btnSim">Sim</button>
+            <button id="btnSim" @click="fazerAluguel">Sim</button>
             <button id="btnNao" @click="isOverlayVisible=false">Não</button>
         </div>    
     </div>
@@ -185,32 +185,65 @@ const isOverlayVisible = ref(false);
 function confirmarAluguel(){
     if(estoqueIsEmpty(quantEstoques)){
         alert('Um dos Filmes não esta disponivel no estoque');
-        router.push({
-    name: 'FazerAluguel'});
-        
-    return;
+        return;
+
     }
     else if(idPessoa.value===null){
             alert('Selecione o dono do Emprestimo para continuar');
-            router.push({
-            name: 'FazerAluguel'
-            });
             return;
             }
 
      isOverlayVisible.value=true;
-console.log(isOverlayVisible.value);
+    console.log(isOverlayVisible.value);
+        }
+
 
 async function fazerAluguel(){
-    /* TERMINAR */
-    const response = fetch(`http://localhost:8080/aluguel/criar`,{
+const filmesFormatados = idsTratados.map(id =>({id: id}));
+        let today = new Date();
+        const year = String(today.getFullYear());
+        let month = String(today.getMonth() + 1); 
+        let day = today.getDate(); 
+        if(day<10){
+            day=String('0'+day);
+        }
+        if(month<10){
+            month=String('0'+month);
+        }
+        today = year+'-'+month+'-'+day;
+        console.log(idsTratados.length);
+        let precoAluguel = 12*(idsTratados.length);
+        let dataToSend = {
+            valorAluguel: precoAluguel,
+            dataAluguel: today,
+            pessoa:{
+                id: idPessoa.value
+            },
+            filmes: filmesFormatados
+        };
+        dataToSend =JSON.stringify(dataToSend,null,2);//Transformando em json
+
+        console.log(dataToSend);
+try{
+    const response = await fetch(`http://localhost:8080/aluguel/criar`,{
         method:'POST',
-        headers:'Content-Type':'application/json',
-        body:/* VARIAVEL AQUI */
-    })
+        headers:{'Content-Type':'application/json'},
+        body:dataToSend
+    });
+     if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        alert("Empréstimo Feito com Sucesso!")
+        console.log('Success:', dataToSend);
+        return response.json();
+  
+}
+catch(error){
+console.log(error);
+}
 }
 
-}
+
 
 
 

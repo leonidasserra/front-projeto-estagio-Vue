@@ -32,6 +32,31 @@
           </tbody>
         </table>
       </div>
+      <h2>Empréstimos Relacionados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <td>Código</td>
+                        <td>Data de inicio</td>
+                        <td>Data de Devolução</td>
+                        <td>Valor</td>
+                        <td>Status</td>
+                        <td>Cliente</td>
+                        <td>Ações</td>
+                    </tr>
+                </thead>
+                <tbody id="lista-emprestimos-relacionados">
+                    <tr v-for="aluguel in alugueis" :key="aluguel.id">
+                        <td>{{ aluguel.id }}</td>
+                        <td>{{ aluguel.dataAluguel  }}</td>
+                        <td>{{ aluguel.devolucaoPrevista }}</td>
+                        <td>{{ aluguel.valorAluguel }}</td>
+                        <td>{{ aluguel.status }}</td>
+                        <!-- <td>{{ /* */ }}</td> -->
+                        <td><button @click="finalizarAluguel(aluguel.id)"> Finalizar</button></td>
+                    </tr>
+                </tbody>
+            </table>
     </div>
     
     <div v-else class="not-found-state">
@@ -65,6 +90,8 @@ const route = useRoute();
 const filmeDetalhes = ref(null); // Corrigido para ref(null)
 const carregando = ref(true);
 const isModalVisible=ref(false);
+let alugueis=ref(null);
+
 onMounted(async () => {
   const idDoFilme = route.query.id; 
   console.log("ID do filme na URL:", idDoFilme);
@@ -91,11 +118,33 @@ onMounted(async () => {
     }
   }
   carregando.value = false;
+
+
+  try{
+    const respostaPessoaFilme = await fetch(`http://localhost:8080/aluguel/buscafilme/${idDoFilme}`);
+      if (!respostaPessoaFilme.ok) {
+        throw new Error('Erro ao buscar o filme.');
+      }
+      const dataPessoaFilme = await respostaPessoaFilme.json();
+      alugueis.value=dataPessoaFilme; //ADICIONAR AQUI O TRATAMENTO DE  LOCALEDATA -> DD/MM/AAAA
+      //FALTA TAMBEM A LÓGICA DO GET DO PROPRIETARIO DO ALUGUEL
+  }
+  catch(error){
+    console.error('Erro ao buscar detalhes:', error);
+    alugueis.value = null;
+  }
 });
 
 function goToMaisDetalhes() {
     isModalVisible.value = true;
 }
+
+async function finalizarAluguel(id){
+  // falta implementar
+}
+
+
+
 
 </script>
 

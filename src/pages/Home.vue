@@ -8,8 +8,8 @@
     </div>
     
     <div class="home-content">
-      <form action="4.fazerAluguel.html">
-        <button type="button" class="float-btn" id="next-home-btn" @click="getIdCheckboxes">Seguinte</button>
+      <form>
+        <button type="button" class="float-btn" id="next-home-btn" @click.prevent="getIdCheckboxes">Seguinte</button>
         
         <table id="tabela_filmes">
           <thead>
@@ -89,6 +89,7 @@ onMounted(() => {
 function getIdCheckboxes() {
   if (idsSelecionados.value.length === 0) {
     alert('Por favor, selecione pelo menos um filme para continuar.');
+    return;
   }
   sessionStorage.setItem('filmesSelecionados', JSON.stringify(idsSelecionados.value));
 

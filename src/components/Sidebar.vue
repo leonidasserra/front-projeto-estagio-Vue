@@ -3,28 +3,28 @@
 <div class="sidebar">
 
 
-  <!-- <ul>
+  <ul>
     <li><RouterLink to="/home">Home</RouterLink></li>
     <br>
 
-    <li><RouterLink to="/clientes">Ver Clientes</RouterLink></li>
+    <li><RouterLink to="/">Ver Clientes</RouterLink></li>
     <br>
 
-    <li><RouterLink to="/novo-cliente">Novo Cliente</RouterLink></li>
+    <li><RouterLink to="/">Novo Cliente</RouterLink></li>
     <br>
 
-    <li><RouterLink to="/novo-filme">Novo Filme</RouterLink></li>
+    <li><RouterLink to="/">Novo Filme</RouterLink></li>
     <br>
 
-    <a href="#" @click.prevent="goBack">Voltar</a>
+    <a href="#" @click.prevent="history.back()">Voltar</a>
     <br>
 
     <a href="#" @click.prevent="logout" id="exit-btn">Sair</a>
-  </ul> -->
+  </ul>
 
 
 
-  <ul>
+  <!-- <ul>
     <a to="/home">Home</a>
     <br>
 
@@ -41,7 +41,7 @@
     <br>
 
     <a href="#" @click.prevent="logout" id="exit-btn">Sair</a>
-  </ul>
+  </ul> -->
 
 
 </div>
@@ -99,5 +99,5 @@
 </style>
 
 <script setup>
-  import { RouterLink } from 'vue-router';
+  import { RouterLink, RouterView } from 'vue-router';
 </script>
