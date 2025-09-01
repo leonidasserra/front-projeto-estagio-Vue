@@ -45,19 +45,13 @@
       </form>
     </div>
 
-    <nav class="pagination" aria-label="Navegação de páginas">
-        <ul>
-            <li><a href="?page=1" class="active">1</a></li>
-            <li><a href="?page=2">2</a></li>
-            <li><a href="?page=3">3</a></li>
-            <li><a href="?page=2">Próximo</a></li>
-        </ul>
-    </nav>
+<pagination></pagination>
   </main>
 </template>
 
 <script setup>
 import Searchbar from '@/components/Searchbar.vue';
+import Pagination from '@/components/Pagination.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import '../assets/global.css'

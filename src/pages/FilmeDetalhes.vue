@@ -23,7 +23,7 @@
           <tbody id="corpo_tabela_filmes_3">
             <tr>
               <td>{{ filmeDetalhes.id }}</td>
-              <td class="filme-clicavel" @click="goToMaisDetalhes">{{ filmeDetalhes.title }}</td>
+              <td class="nome-clicavel" @click="goToMaisDetalhes">{{ filmeDetalhes.title }}</td>
               <td>{{ filmeDetalhes.genero }}</td>
               <td>{{ filmeDetalhes.ano }}</td>
               <td>{{ filmeDetalhes.quantidadeEstoque }}</td>
@@ -75,7 +75,7 @@
       <p><strong>Classificação:</strong> {{ filmeDetalhes.classificacao }}</p>
       <p><strong>Duração:</strong> {{ filmeDetalhes.duracao }}</p>
       <p><strong>Descrição:</strong> {{ filmeDetalhes.sinopse }}</p>
-      <button @click="isModalVisible = false">Fechar</button>
+      <!-- <button @click="isModalVisible = false">Fechar</button> -->
     </div>
   </div>
 </template>
@@ -214,7 +214,7 @@ async function finalizarAluguel(idAluguel){
 }
 
 
-.filme-clicavel {
+.nome-clicavel {
   color: blue;
   cursor: pointer;
 }

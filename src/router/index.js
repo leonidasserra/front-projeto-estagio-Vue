@@ -1,6 +1,9 @@
+import CadastroFilme from '@/pages/CadastroFilme.vue';
+import CadastroPessoa from '@/pages/CadastroPessoa.vue';
 import FazerAluguel from '@/pages/FazerAluguel.vue';
 import FilmeDetalhes from '@/pages/FilmeDetalhes.vue';
 import Home from '@/pages/Home.vue';
+import Pessoas from '@/pages/Pessoas.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -23,16 +26,22 @@ const routes = [
     name: 'FazerAluguel',
     component: FazerAluguel
   },
-//   {
-//     path: '/novo-cliente',
-//     name: 'novo-cliente',
-//     component: NovoCliente
-//   },
-//   {
-//     path: '/novo-filme',
-//     name: 'novo-filme',
-//     component: NovoFilme
-//   },
+  {
+    path: '/clientes',
+    name: 'Pessoas',
+    component: Pessoas
+  },
+
+  {
+    path: '/novo-cliente',
+    name: 'CadastroPessoa',
+    component: CadastroPessoa
+  },
+  {
+    path: '/novo-filme',
+    name: 'CadastroFilme',
+    component: CadastroFilme
+  },
 //   {
 //     path: '/login',
 //     name: 'login',
