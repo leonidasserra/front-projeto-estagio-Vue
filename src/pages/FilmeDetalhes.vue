@@ -17,7 +17,7 @@
               <td>Gênero</td>
               <td>Ano</td>
               <td>Estoque</td>
-              <td>Ações</td>
+              <!-- <td>Ações</td> -->
             </tr>
           </thead>
           <tbody id="corpo_tabela_filmes_3">
@@ -27,7 +27,7 @@
               <td>{{ filmeDetalhes.genero }}</td>
               <td>{{ filmeDetalhes.ano }}</td>
               <td>{{ filmeDetalhes.quantidadeEstoque }}</td>
-              <td></td>
+              <!-- <td></td> -->
             </tr>
           </tbody>
         </table>
@@ -52,8 +52,8 @@
                         <td>{{ aluguel.devolucaoPrevista }}</td>
                         <td>{{ aluguel.valorAluguel }}</td>
                         <td>{{ aluguel.status }}</td>
-                        <!-- <td>{{ /* */ }}</td> -->
-                        <td><button @click="finalizarAluguel(aluguel.id)"> Finalizar</button></td>
+                        <td>{{ aluguel.nomePorprietario }}</td>
+                        <td><button type="button" class="add-btn" @click="finalizarAluguel(aluguel.id)"> Finalizar</button></td>
                     </tr>
                 </tbody>
             </table>
@@ -72,9 +72,9 @@
       <p><strong>Gênero:</strong> {{ filmeDetalhes.genero }}</p>
       <p><strong>Ano:</strong> {{ filmeDetalhes.ano }}</p>
       <p><strong>Estoque:</strong> {{ filmeDetalhes.quantidadeEstoque }}</p>
-      <p><strong>Classificacao:</strong> {{ filmeDetalhes.classificacao }}</p>
-      <p><strong>Duracao:</strong> {{ filmeDetalhes.duracao }}</p>
-      <p><strong>Deescricao:</strong> {{ filmeDetalhes.sinopse }}</p>
+      <p><strong>Classificação:</strong> {{ filmeDetalhes.classificacao }}</p>
+      <p><strong>Duração:</strong> {{ filmeDetalhes.duracao }}</p>
+      <p><strong>Descrição:</strong> {{ filmeDetalhes.sinopse }}</p>
       <button @click="isModalVisible = false">Fechar</button>
     </div>
   </div>
@@ -126,8 +126,15 @@ onMounted(async () => {
         throw new Error('Erro ao buscar o filme.');
       }
       const dataPessoaFilme = await respostaPessoaFilme.json();
-      alugueis.value=dataPessoaFilme; //ADICIONAR AQUI O TRATAMENTO DE  LOCALEDATA -> DD/MM/AAAA
-      //FALTA TAMBEM A LÓGICA DO GET DO PROPRIETARIO DO ALUGUEL
+      alugueis.value=dataPessoaFilme; 
+      //ADICIONAR AQUI O TRATAMENTO DE  LOCALEDATA -> DD/MM/AAAA
+      for (const aluguel of alugueis.value){
+        aluguel.dataAluguel = formatarDataLocaleToNormal(aluguel.dataAluguel)
+        aluguel.devolucaoPrevista = formatarDataLocaleToNormal(aluguel.devolucaoPrevista)
+        const nomePorprietario = await buscarProprietarioAluguel(aluguel.pessoa.id)
+        aluguel.nomePorprietario=nomePorprietario;
+      }
+
   }
   catch(error){
     console.error('Erro ao buscar detalhes:', error);
@@ -139,12 +146,62 @@ function goToMaisDetalhes() {
     isModalVisible.value = true;
 }
 
-async function finalizarAluguel(id){
-  // falta implementar
+
+async function buscarProprietarioAluguel(idPessoa) {
+  const response = await fetch(`http://localhost:8080/pessoa/buscar/${idPessoa}`)
+  if (!response.ok) {
+        throw new Error('Erro ao buscar o proprietario.');
+      }
+
+      // 2. Corrigida a forma de obter os dados com fetch
+  const data = await response.json();
+  return data.name
 }
 
+function formatarDataLocaleToNormal(dataLocale){
+  const dataRaw = String(dataLocale);
+  const ano= dataRaw.slice(0,4);
+  const mes= dataRaw.slice(5,7);
+  const dia= dataRaw.slice(8,10);
+  const dataTratada = dia+'/'+mes+'/'+ano;
+    return dataTratada;
 
+}
 
+async function finalizarAluguel(idAluguel){
+  const aluguelFinalizado = alugueis.value.find(aluguel => aluguel.id === idAluguel);
+  if(aluguelFinalizado.status === 'Ativo'){
+      try {
+        const response = await fetch(`http://localhost:8080/aluguel/finalizar/${idAluguel}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+        }
+    
+    //Encontrar o aluguel na  lista 
+    
+
+    // Atualizar  status
+    if (aluguelFinalizado) {
+      aluguelFinalizado.status = 'Finalizado';
+      //devolver o filme pro estoque
+      aluguelFinalizado.quantidadeEstoque +=1 ; 
+      
+      console.log(`Empréstimo ${idAluguel} concluído com sucesso.`);
+      } 
+    }
+ 
+
+    catch (error) {
+        console.error('Houve um problema ao concluir o empréstimo:', error);
+    }
+  }
+}
 
 </script>
 
