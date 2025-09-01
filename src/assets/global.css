@@ -415,14 +415,13 @@ font-weight: bolder;
 }
 
 .main-content-filmesDet{
-  margin-top: 10%;
+  /* Você pode remover o margin-top, ou diminuí-lo se quiser um pequeno espaço */
   margin-left: 15%;
+  /* Removido o top: 200px; */
   display: flex;
-  align-items: center;
   flex-direction: column;
-  gap:10px;
+  gap: 10px;
   justify-content: center;
-  top: 200px
 }
 
 .main-content-filmesDet p{

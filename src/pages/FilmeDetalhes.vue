@@ -57,6 +57,7 @@
                     </tr>
                 </tbody>
             </table>
+              <pagination></pagination>
     </div>
     
     <div v-else class="not-found-state">
@@ -78,6 +79,7 @@
       <!-- <button @click="isModalVisible = false">Fechar</button> -->
     </div>
   </div>
+
 </template>
 
 <script setup>
