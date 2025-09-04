@@ -6,6 +6,16 @@ import Home from './pages/Home.vue'
 import FilmeDetalhes from './pages/FilmeDetalhes.vue';
 import { RouterView } from 'vue-router';
 
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+
+const route = useRoute();
+
+const showSidebar = computed(() => {
+  // A sidebar será exibida se o meta field 'requiresSidebar' for true
+  return route.meta.requiresSidebar;
+});
 
 </script>
 
@@ -14,7 +24,7 @@ import { RouterView } from 'vue-router';
 <template>
 
  <div class="app-container">
-    <Sidebar></Sidebar>
+    <Sidebar v-if="showSidebar"></Sidebar>
 
     <main class="content-area">
       <!-- <Home></Home> -->
