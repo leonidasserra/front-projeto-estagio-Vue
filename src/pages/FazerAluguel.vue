@@ -80,11 +80,14 @@
 </template>
 
 <script setup>
+import { isTokenValid } from '../assets/auth.js';
 import '../assets/global.css'
 import { ref, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
+const accessToken = localStorage.getItem('accessToken');
 
 const idsSelecionados = JSON.parse(sessionStorage.getItem('filmesSelecionados') || '[]'); 
     // ALTERAÇÃO: adicionado fallback '[]' para evitar erro se a chave não existir.
@@ -109,9 +112,12 @@ let quantEstoques=[];
 let filmesParaAlugar=ref([]);
 
 
-// ... outras importações
 
 onMounted(async () => {
+    if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
     try {
         
         for(const id of idsTratados) {
@@ -137,7 +143,9 @@ onMounted(async () => {
 });
 
     async function buscarFilme(id){
-        const response =  await fetch(`http://localhost:8080/filme/buscar/${id}`)
+        const response =  await fetch(`http://localhost:8080/filme/buscar/${id}`,{
+            headers: {'Authorization': `Bearer ${accessToken}`}
+        })
             if (!response.ok) {
             throw new Error('Erro ao buscar o filme.');
             }
@@ -172,7 +180,9 @@ watch(buscaPessoa,(novoTexto)=>{
 
 const pessoas=ref({});
 async function buscarPessoa(name){
-    const response = await fetch(`http://localhost:8080/pessoa/buscar?name=${encodeURIComponent(name)}`);
+    const response = await fetch(`http://localhost:8080/pessoa/buscar?name=${encodeURIComponent(name)}`,{
+        headers: {'Authorization': `Bearer ${accessToken}`}
+    });
     pessoas.value = await response.json();
     console.log(pessoas);
     return pessoas;
@@ -227,7 +237,10 @@ const filmesFormatados = idsTratados.map(id =>({id: id}));
 try{
     const response = await fetch(`http://localhost:8080/aluguel/criar`,{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
+        headers:{
+        'Content-Type':'application/json',
+        'Authorization': `Bearer ${accessToken}`
+        },
         body:dataToSend
     });
      if (!response.ok) {
@@ -235,6 +248,11 @@ try{
         }
         alert("Empréstimo Feito com Sucesso!")
         console.log('Success:', dataToSend);
+          
+        router.push({
+        name: 'Home'
+        });
+
         return response.json();
   
 }

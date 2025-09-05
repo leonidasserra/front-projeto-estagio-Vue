@@ -23,6 +23,7 @@
 
 <script setup>
 
+import router from '@/router';
 import { ref } from 'vue';
 
 const username=ref('');
@@ -66,8 +67,11 @@ async function fazerLogin(){
         
         // Salvar Token
         localStorage.setItem('accessToken', accessToken);
-        ocalStorage.setItem('expiresIn', Date.now() + expiresIn * 1000); // expiresIn * 1000 pq o JS trabalha com milissegundos
-
+        localStorage.setItem('expiresIn', Date.now() + expiresIn * 1000); // expiresIn * 1000 pq o JS trabalha com milissegundos
+        
+          router.push({
+          name: 'Home'
+          });
 
         alert("Login com sucesso!"); 
         requisicao.value = null;
@@ -80,6 +84,11 @@ async function fazerLogin(){
     }
 }
 
+function toSignUp(){
+  router.push({
+          name: 'Register'
+          });
+}
 
 
 </script>

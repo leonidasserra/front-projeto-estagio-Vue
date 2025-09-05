@@ -54,6 +54,10 @@ import Searchbar from '@/components/Searchbar.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import '../assets/global.css'
+import { isTokenValid } from '../assets/auth.js';
+
+const accessToken = localStorage.getItem('accessToken');
+
 
 let pessoas = ref({});
 let pessoaDetalhes = ref({});
@@ -61,8 +65,16 @@ let isModalVisible =ref(false)
 const router = useRouter();
 
 const listarPessoas = async () => {
+
+  if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
+
   try {
-    const response = await fetch('http://localhost:8080/pessoa/listar');
+    const response = await fetch('http://localhost:8080/pessoa/listar',{
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    });
     
     if (!response.ok) {
        console.log(response);
@@ -82,7 +94,9 @@ onMounted(() => {
 
 // Ações para o clique no ID do filme
 async function mostrarDetalhes(id) {
-    const response = await fetch(`http://localhost:8080/pessoa/buscar/${id}`);
+    const response = await fetch(`http://localhost:8080/pessoa/buscar/${id}`,{
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    });
     if (!response.ok) {
        console.log(response);
     }

@@ -88,6 +88,10 @@
 <script setup>
 
 import { ref } from 'vue';
+import { isTokenValid } from '../assets/auth.js';
+
+
+
 
 const titulo = ref('');
 const genero = ref('');
@@ -101,6 +105,12 @@ const quantidadeEstoque = ref(null);
 const requisicao=ref(null);
 
 async function getDados(){
+
+  if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
+
   console.log('Título:', titulo.value);
   console.log('Gênero:', genero.value);
   console.log('Ano:', ano.value);
@@ -130,7 +140,8 @@ if(classificacao.value=='Livre'){
   const response=await fetch('http://localhost:8080/filme/criar',{
   method:'POST',
   headers:{
-  'Content-Type':  "application/json"
+  'Content-Type':  "application/json",
+  'Authorization': `Bearer ${accessToken}`
   },
   body: requisicao.value
  })

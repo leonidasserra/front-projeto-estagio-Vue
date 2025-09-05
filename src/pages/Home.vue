@@ -55,14 +55,22 @@ import Pagination from '@/components/Pagination.vue';
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import '../assets/global.css'
+import { isTokenValid } from '../assets/auth.js';
 
+const accessToken = localStorage.getItem('accessToken');
 let filmes = ref({});
 let idsSelecionados = ref([]);
 const router = useRouter();
 
 const listarFilmes = async () => {
+  if (!isTokenValid()) {
+    return; 
+  }
+
   try {
-    const response = await fetch('http://localhost:8080/filme/listar');
+    const response = await fetch('http://localhost:8080/filme/listar',{
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    });
     
     if (!response.ok) {
        console.log(response);
@@ -81,6 +89,9 @@ onMounted(() => {
 
 
 function getIdCheckboxes() {
+  if (!isTokenValid()) {
+    return; 
+  }
   if (idsSelecionados.value.length === 0) {
     alert('Por favor, selecione pelo menos um filme para continuar.');
     return;

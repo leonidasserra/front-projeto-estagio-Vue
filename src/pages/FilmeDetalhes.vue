@@ -87,21 +87,30 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import '../assets/global.css';
 import Pagination from '@/components/Pagination.vue';
+import { isTokenValid } from '../assets/auth.js';
 
 const route = useRoute();
 const filmeDetalhes = ref(null); // Corrigido para ref(null)
 const carregando = ref(true);
 const isModalVisible=ref(false);
 let alugueis=ref(null);
+const accessToken = localStorage.getItem('accessToken');
 
 onMounted(async () => {
   const idDoFilme = route.query.id; 
   console.log("ID do filme na URL:", idDoFilme);
 
+if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
+
   if (idDoFilme) {
     try {
       // 1. A sua URL pode estar errada; verifique o caminho da sua API
-      const response = await fetch(`http://localhost:8080/filme/buscar/${idDoFilme}`);
+      const response = await fetch(`http://localhost:8080/filme/buscar/${idDoFilme}`,{
+         headers: {'Authorization': `Bearer ${accessToken}`}
+      });
 
       if (!response.ok) {
         throw new Error('Erro ao buscar o filme.');
@@ -123,7 +132,9 @@ onMounted(async () => {
 
 
   try{
-    const respostaPessoaFilme = await fetch(`http://localhost:8080/aluguel/buscafilme/${idDoFilme}`);
+    const respostaPessoaFilme = await fetch(`http://localhost:8080/aluguel/buscafilme/${idDoFilme}`,{
+      headers: {'Authorization': `Bearer ${accessToken}`}
+    });
       if (!respostaPessoaFilme.ok) {
         throw new Error('Erro ao buscar o filme.');
       }
@@ -150,7 +161,9 @@ function goToMaisDetalhes() {
 
 
 async function buscarProprietarioAluguel(idPessoa) {
-  const response = await fetch(`http://localhost:8080/pessoa/buscar/${idPessoa}`)
+  const response = await fetch(`http://localhost:8080/pessoa/buscar/${idPessoa}`,{
+    headers: {'Authorization': `Bearer ${accessToken}`}
+  })
   if (!response.ok) {
         throw new Error('Erro ao buscar o proprietario.');
       }
@@ -177,7 +190,8 @@ async function finalizarAluguel(idAluguel){
         const response = await fetch(`http://localhost:8080/aluguel/finalizar/${idAluguel}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         });
 

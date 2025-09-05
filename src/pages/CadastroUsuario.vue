@@ -47,7 +47,9 @@
 
 //===========FALTA TESTAR REQUISIÇÃO
 import {ref} from 'vue';
+import { isTokenValid } from '../assets/auth.js';
 
+const accessToken = localStorage.getItem('accessToken');
 
 const username=ref('');
 const nome=ref('');
@@ -57,6 +59,10 @@ const password=ref('');
 
 const requisicao=ref(null);
 async function getDados(){
+  if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
   console.log('Nome:', nome.value);
   console.log('CPF:', cpf.value);
   console.log('email:', email.value);
@@ -75,7 +81,8 @@ async function getDados(){
     const response= await fetch('http://localhost:8080/register',{
             method: 'POST',
             headers: {
-                   'Content-Type': 'application/json' 
+                   'Content-Type': 'application/json',
+                   'Authorization': `Bearer ${accessToken}` 
             },
             body:requisicao.value
         })

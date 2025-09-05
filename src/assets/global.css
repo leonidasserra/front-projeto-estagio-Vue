@@ -32,6 +32,13 @@ header h1{
   align-items: center;
 }
 
+#username{
+  height: 4.9%;
+}
+#senhaLogin{
+  height: 4.9%;
+}
+
 #login-btn{
   background-color:#4DB1F8;
   display: flex;

@@ -38,6 +38,9 @@
 
 <script setup>
 import {ref} from 'vue';
+import { isTokenValid } from '../assets/auth.js';
+
+const accessToken = localStorage.getItem('accessToken');
 
 const nome=ref('');
 const cpf=ref('');
@@ -45,7 +48,14 @@ const email=ref('');
 const telefone=ref('');
 const nascimento=ref('');
 const requisicao=ref(null);
+
 async function getDados(){
+
+if(!isTokenValid){
+  alert("Token not valid or expired");
+  return ;
+}
+
   console.log('Nome:', nome.value);
   console.log('CPF:', cpf.value);
   console.log('Número:', telefone.value);
@@ -64,7 +74,8 @@ async function getDados(){
     const response= await fetch('http://localhost:8080/pessoa/criar',{
             method: 'POST',
             headers: {
-                   'Content-Type': 'application/json' 
+                   'Content-Type': 'application/json',
+                   'Authorization': `Bearer ${accessToken}` 
             },
             body:requisicao.value
         })
